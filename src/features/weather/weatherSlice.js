@@ -1,14 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchWeather } from "../api/weatherActions.js";
 
 const weatherSlice = createSlice({
     name: 'weather',
-    initialState: {
-        weather: {}
-    },
-    reducers: {
-        setWeather: (state, action) => action.payload
+    initialState: {},
+    reducers: {},
+    extraReducers: builder => {
+        builder
+            .addCase(fetchWeather.fulfilled, (state, action) => action.payload)
+            .addCase(fetchWeather.rejected, () => ({}))
     }
-});
+})
 
-export const { setWeather } = weatherSlice.actions;
-export default weatherSlice.reducer;
+export default weatherSlice.reducer
